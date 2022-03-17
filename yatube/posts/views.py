@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
@@ -84,7 +82,6 @@ def post_edit(request, post_id):
     form = PostForm(request.POST or None, instance=post)
     if form.is_valid():
         post = form.save(commit=False)
-        post.pub_date = datetime.datetime.now()
         post.save()
         return redirect('posts:post_detail', post_id)
     return render(request, template, {'form': form, 'is_edit': True})
